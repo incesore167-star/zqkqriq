@@ -1,49 +1,289 @@
+/* ═══════════════════════════════════════════════════════════════
+   Les Ptits Bens — Design Tokens
+   L'Élégance à la Française pour les 0–14 ans
+   ═══════════════════════════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Palette de marque ─────────────────────────────────────── */
+
+  /* marine */
+  --marine-100: #E6E7EA;
+  --marine-200: #C4C8CD;
+  --marine-300: #9BA1AA;
+  --marine-400: #697280;
+  --marine-500: #2E3B4E;
+  --marine-600: #263040;
+  --marine-700: #202937;
+  --marine-800: #1B222D;
+  --marine-900: #141A22;
+
+  /* pivoine */
+  --pivoine-100: #F8F0EF;
+  --pivoine-200: #EEDCDA;
+  --pivoine-300: #E3C3C0;
+  --pivoine-400: #D5A5A0;
+  --pivoine-500: #C4827B;
+  --pivoine-600: #A16B65;
+  --pivoine-700: #895B56;
+  --pivoine-800: #83504B; /* AA sur sable */
+  --pivoine-900: #563936;
+
+  /* sauge */
+  --sauge-100: #F2F4F1;
+  --sauge-200: #E1E6DF;
+  --sauge-300: #CCD4C8;
+  --sauge-400: #B2BFAC;
+  --sauge-500: #94A68C;
+  --sauge-600: #798873;
+  --sauge-700: #687462;
+  --sauge-800: #526449; /* AA sur sable */
+  --sauge-900: #41493E;
+
+  /* sable */
+  --sable-100: #FDFDFD;
+  --sable-200: #FBFBFA;
+  --sable-300: #F9F8F6;
+  --sable-400: #F6F4F1;
+  --sable-500: #F2F0EC;
+  --sable-600: #C6C5C2;
+  --sable-700: #A9A8A5;
+  --sable-800: #8C8B89;
+  --sable-900: #6A6A68;
+
+  /* ardoise */
+  --ardoise-100: #EAEAEA;
+  --ardoise-200: #CFCECD;
+  --ardoise-300: #ADABA9;
+  --ardoise-400: #84817E;
+  --ardoise-500: #54504C;
+  --ardoise-600: #45423E;
+  --ardoise-700: #3B3835;
+  --ardoise-800: #312E2C;
+  --ardoise-900: #252321;
+
+  /* doré */
+  --dore-100: #F6F3ED;
+  --dore-200: #EBE2D5;
+  --dore-300: #DDCDB7;
+  --dore-400: #CCB494;
+  --dore-500: #B8976A;
+  --dore-600: #977C57;
+  --dore-700: #816A4A;
+  --dore-800: #765A37; /* AA sur sable */
+  --dore-900: #51422F;
+
+  /* Alias 500 */
+  --marine: var(--marine-500);
+  --pivoine: var(--pivoine-500);
+  --sauge: var(--sauge-500);
+  --sable: var(--sable-500);
+  --ardoise: var(--ardoise-500);
+  --dore: var(--dore-500);
+
+  /* ── Espacement (base 4px) ─────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-13: 56px;
+  --space-14: 64px;
+  --space-15: 80px;
+  --space-16: 96px;
+
+  /* ── Rayons ────────────────────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* ── Ombres ────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(46, 59, 78, 0.06);
+  --shadow-md: 0 4px 12px rgba(46, 59, 78, 0.08);
+  --shadow-lg: 0 12px 32px rgba(46, 59, 78, 0.14);
+
+  /* ── Transitions ───────────────────────────────────────────── */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+
+  /* ── Typographie ───────────────────────────────────────────── */
+  /* Les familles sont injectées par next/font dans app/layout.tsx */
+  --font-display: var(--font-cormorant), 'Georgia', serif;
+  --font-body: var(--font-outfit), system-ui, -apple-system, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+
+  /* ── Tokens fonctionnels — thème clair ─────────────────────── */
+  --bg: #FAF9F7;
+  --bg-card: #FFFFFF;
+  --bg-subtle: var(--sable-500);
+  --bg-inverse: var(--marine-500);
+  --text-primary: var(--marine-500);
+  --text-secondary: #6B6560;
+  --text-tertiary: #8E8882;
+  --text-inverse: var(--sable-500);
+  --border: #E5E1DB;
+  --border-light: #EEEBE6;
+  --accent: var(--pivoine-500);
+  --accent-strong: var(--pivoine-800);
+  --accent-soft: rgba(196, 130, 123, 0.12);
+  --success: var(--sauge-500);
+  --success-strong: var(--sauge-800);
+  --success-soft: rgba(148, 166, 140, 0.12);
+  --gold: var(--dore-500);
+  --gold-strong: var(--dore-800);
+  --gold-soft: rgba(184, 151, 106, 0.12);
+  --focus-ring: var(--marine-400);
+
+  color-scheme: light;
 }
 
+/* ── Thème sombre : préférence système ───────────────────────── */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme='light']) {
+    --bg: #1A1E24;
+    --bg-card: #242930;
+    --bg-subtle: #2A2F37;
+    --bg-inverse: var(--sable-500);
+    --text-primary: #E8E4DF;
+    --text-secondary: #A09A94;
+    --text-tertiary: #7A756F;
+    --text-inverse: var(--marine-800);
+    --border: #3A3F47;
+    --border-light: #2F343C;
+    --accent: #D4968F;
+    --accent-strong: #E3B4AE;
+    --accent-soft: rgba(212, 150, 143, 0.12);
+    --success: #A4B69C;
+    --success-strong: #BECBB8;
+    --success-soft: rgba(164, 182, 156, 0.12);
+    --gold: #C8A77A;
+    --gold-strong: #D9BF9C;
+    --gold-soft: rgba(200, 167, 122, 0.12);
+    --focus-ring: #8BA0BE;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.35);
+
+    color-scheme: dark;
   }
 }
 
-html {
-  height: 100%;
+/* ── Thème sombre : choix explicite de l'utilisateur ─────────── */
+:root[data-theme='dark'] {
+  --bg: #1A1E24;
+  --bg-card: #242930;
+  --bg-subtle: #2A2F37;
+  --bg-inverse: var(--sable-500);
+  --text-primary: #E8E4DF;
+  --text-secondary: #A09A94;
+  --text-tertiary: #7A756F;
+  --text-inverse: var(--marine-800);
+  --border: #3A3F47;
+  --border-light: #2F343C;
+  --accent: #D4968F;
+  --accent-strong: #E3B4AE;
+  --accent-soft: rgba(212, 150, 143, 0.12);
+  --success: #A4B69C;
+  --success-strong: #BECBB8;
+  --success-soft: rgba(164, 182, 156, 0.12);
+  --gold: #C8A77A;
+  --gold-strong: #D9BF9C;
+  --gold-soft: rgba(200, 167, 122, 0.12);
+  --focus-ring: #8BA0BE;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.35);
+
+  color-scheme: dark;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+/* ═══════════════════════════════════════════════════════════════
+   Base
+   ═══════════════════════════════════════════════════════════════ */
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
   margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--duration-base) var(--ease);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+img,
+picture,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: var(--accent-strong);
+  text-underline-offset: 3px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

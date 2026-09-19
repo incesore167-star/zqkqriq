@@ -1,69 +1,50 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import styles from './page.module.css';
+
+const palette = [
+  { name: 'Marine', token: '--marine', hex: '#2E3B4E' },
+  { name: 'Pivoine', token: '--pivoine', hex: '#C4827B' },
+  { name: 'Sauge', token: '--sauge', hex: '#94A68C' },
+  { name: 'Sable', token: '--sable', hex: '#F2F0EC' },
+  { name: 'Ardoise', token: '--ardoise', hex: '#54504C' },
+  { name: 'Doré', token: '--dore', hex: '#B8976A' },
+];
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <main className={styles.main}>
+      <p className={styles.eyebrow}>Les Ptits Bens</p>
+      <h1 className={styles.title}>Fondations en place</h1>
+      <p className={styles.subtitle}>
+        Session 1 — design tokens, typographie et thème sombre sont branchés.
+        Cette page de démonstration sera remplacée par la vraie page
+        d&apos;accueil en Session 4.
+      </p>
+
+      <h2 className={styles.sectionTitle}>Palette</h2>
+      <div className={styles.swatches}>
+        {palette.map((c) => (
+          <div key={c.name} className={styles.swatch}>
+            <div
+              className={styles.swatchColor}
+              style={{ background: `var(${c.token})` }}
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <div className={styles.swatchInfo}>
+              <div className={styles.swatchName}>{c.name}</div>
+              <div className={styles.swatchHex}>{c.hex}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2 className={styles.sectionTitle}>Typographie</h2>
+      <div className={styles.typeSample}>
+        <p className={styles.display}>L&apos;Élégance à la Française</p>
+        <p className={styles.body}>
+          Cormorant Garamond pour les titres, Outfit pour le corps de texte.
+          Des vêtements pensés pour les 0–14 ans : douceur des matières,
+          justesse des coupes, couleurs qui traversent les saisons.
+        </p>
+      </div>
+    </main>
   );
 }
