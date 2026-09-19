@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Outfit } from 'next/font/google';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import CartDrawer from '@/components/layout/CartDrawer';
+import { StoreProvider } from '@/lib/store';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -52,7 +56,12 @@ export default function RootLayout({
     >
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
-        {children}
+        <StoreProvider>
+          <Header />
+          <main id="contenu">{children}</main>
+          <CartDrawer />
+          <Footer />
+        </StoreProvider>
       </body>
     </html>
   );

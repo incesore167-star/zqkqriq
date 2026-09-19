@@ -1,50 +1,183 @@
+import Link from 'next/link';
+import ProductCard from '@/components/product/ProductCard';
+import { CATEGORIES, PRODUCTS } from '@/lib/catalog';
 import styles from './page.module.css';
 
-const palette = [
-  { name: 'Marine', token: '--marine', hex: '#2E3B4E' },
-  { name: 'Pivoine', token: '--pivoine', hex: '#C4827B' },
-  { name: 'Sauge', token: '--sauge', hex: '#94A68C' },
-  { name: 'Sable', token: '--sable', hex: '#F2F0EC' },
-  { name: 'Ardoise', token: '--ardoise', hex: '#54504C' },
-  { name: 'Doré', token: '--dore', hex: '#B8976A' },
+const TINTS = [
+  'var(--accent-soft)',
+  'var(--success-soft)',
+  'var(--gold-soft)',
+  'var(--accent-soft)',
+];
+
+function TrustIcon({ d }: { d: string }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d={d}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+const TRUST = [
+  {
+    title: 'Livraison offerte',
+    text: 'dès 60 € en France métropolitaine',
+    d: 'M3 7h11v8H3zM14 10h4l3 3v2h-7zM7 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm11 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z',
+  },
+  {
+    title: 'Retour gratuit',
+    text: '30 jours pour changer d’avis',
+    d: 'M4 9l4-4M4 9l4 4M4 9h11a5 5 0 0 1 0 10h-3',
+  },
+  {
+    title: 'Paiement sécurisé',
+    text: 'CB, Visa, Mastercard, PayPal',
+    d: 'M5 11V8a7 7 0 0 1 14 0v3M6 11h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z',
+  },
+  {
+    title: 'Service client FR',
+    text: 'réponse sous 24 h ouvrées',
+    d: 'M4 13a8 8 0 0 1 16 0M3 15a2 2 0 0 1 2-2h1v5H5a2 2 0 0 1-2-2v-1Zm18 0a2 2 0 0 0-2-2h-1v5h1a2 2 0 0 0 2-2v-1Z',
+  },
 ];
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <p className={styles.eyebrow}>Les Ptits Bens</p>
-      <h1 className={styles.title}>Fondations en place</h1>
-      <p className={styles.subtitle}>
-        Session 1 — design tokens, typographie et thème sombre sont branchés.
-        Cette page de démonstration sera remplacée par la vraie page
-        d&apos;accueil en Session 4.
-      </p>
+  const nouveautes = PRODUCTS.filter((p) => p.isNew).concat(
+    PRODUCTS.filter((p) => !p.isNew).slice(0, 5),
+  );
+  const bestSellers = PRODUCTS.filter((p) => p.featured).slice(0, 4);
 
-      <h2 className={styles.sectionTitle}>Palette</h2>
-      <div className={styles.swatches}>
-        {palette.map((c) => (
-          <div key={c.name} className={styles.swatch}>
-            <div
-              className={styles.swatchColor}
-              style={{ background: `var(${c.token})` }}
-            />
-            <div className={styles.swatchInfo}>
-              <div className={styles.swatchName}>{c.name}</div>
-              <div className={styles.swatchHex}>{c.hex}</div>
+  return (
+    <>
+      <section className={styles.hero}>
+        <div className="container">
+          <div className={styles.heroInner}>
+            <h1 className={styles.heroTitle}>
+              L&apos;Élégance à la <em>Française</em>, taille 3 mois à 14 ans
+            </h1>
+            <p className={styles.heroText}>
+              Des matières douces, des coupes justes, des couleurs qui
+              traversent les saisons. Chaque pièce est pensée pour être portée,
+              lavée, transmise.
+            </p>
+            <div className={styles.heroActions}>
+              <Link href="/boutique" className="btn btn--primary btn--lg">
+                Découvrir la Collection
+              </Link>
+              <Link
+                href="/boutique?tri=nouveaute"
+                className="btn btn--outline btn--lg"
+              >
+                Nouveautés
+              </Link>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
 
-      <h2 className={styles.sectionTitle}>Typographie</h2>
-      <div className={styles.typeSample}>
-        <p className={styles.display}>L&apos;Élégance à la Française</p>
-        <p className={styles.body}>
-          Cormorant Garamond pour les titres, Outfit pour le corps de texte.
-          Des vêtements pensés pour les 0–14 ans : douceur des matières,
-          justesse des coupes, couleurs qui traversent les saisons.
-        </p>
-      </div>
-    </main>
+      <section className={`container ${styles.section}`}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className="section-eyebrow">Par âge</p>
+            <h2 className="section-title">Nos univers</h2>
+          </div>
+        </div>
+        <div className={styles.catGrid}>
+          {CATEGORIES.map((c, i) => (
+            <Link
+              key={c.slug}
+              href={`/boutique?cat=${c.slug}`}
+              className={styles.catCard}
+              style={{ ['--tint' as string]: TINTS[i] }}
+            >
+              <p className={styles.catAge}>{c.ageRange}</p>
+              <p className={styles.catName}>{c.name}</p>
+              <p className={styles.catDesc}>{c.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className={`container ${styles.section}`}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className="section-eyebrow">Fraîchement arrivé</p>
+            <h2 className="section-title">Nouveautés</h2>
+          </div>
+          <Link href="/boutique?tri=nouveaute" className={styles.seeAll}>
+            Tout voir →
+          </Link>
+        </div>
+        <div className={styles.carousel}>
+          {nouveautes.map((p) => (
+            <ProductCard key={p.slug} product={p} />
+          ))}
+        </div>
+      </section>
+
+      <section className={`container ${styles.section}`}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className="section-eyebrow">Les plus aimés</p>
+            <h2 className="section-title">Best-sellers</h2>
+          </div>
+          <Link href="/boutique" className={styles.seeAll}>
+            Tout voir →
+          </Link>
+        </div>
+        <div className={styles.grid}>
+          {bestSellers.map((p) => (
+            <ProductCard key={p.slug} product={p} />
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.trust}>
+        <div className={`container ${styles.trustGrid}`}>
+          {TRUST.map((t) => (
+            <div key={t.title} className={styles.trustItem}>
+              <span className={styles.trustIcon}>
+                <TrustIcon d={t.d} />
+              </span>
+              <div>
+                <p className={styles.trustTitle}>{t.title}</p>
+                <p className={styles.trustText}>{t.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className={`container ${styles.section}`}>
+        <div className={styles.story}>
+          <div className={styles.storyVisual}>
+            « Des vêtements qu&apos;on se passe de grand frère en petite sœur »
+          </div>
+          <div className={styles.storyText}>
+            <p className="section-eyebrow">Notre histoire</p>
+            <h2 className="section-title">Faits pour durer, dessinés pour être aimés</h2>
+            <p>
+              Les Ptits Bens est née d&apos;une conviction simple : les
+              vêtements d&apos;enfants doivent survivre aux enfants. Genoux
+              renforcés, coutures doublées, boutons cousus main — et des
+              matières choisies pour leur douceur autant que leur tenue.
+            </p>
+            <p>
+              Chaque collection est dessinée en France, en petites séries, dans
+              des couleurs qui ne se démodent pas. Parce que le plus beau
+              compliment qu&apos;on puisse recevoir, c&apos;est un vêtement
+              transmis au petit frère.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
