@@ -132,17 +132,17 @@
 
   --tracking-wide: 0.18em;
 
-  /* ── Tokens fonctionnels — thème clair (ivoire) ────────────── */
-  --bg: #F7F3EB;
-  --bg-card: #FDFBF6;
-  --bg-subtle: #F0EADD;
+  /* ── Tokens fonctionnels — thème clair (blanc pur) ─────────── */
+  --bg: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F8F5EF;
   --bg-inverse: var(--marine-800);
   --text-primary: #1B2431;
   --text-secondary: #5A554C;
-  --text-tertiary: #8F887A;
+  --text-tertiary: #938C7E;
   --text-inverse: #F1EBDF;
-  --border: #DDD3C0;
-  --border-light: #E9E1D2;
+  --border: #E4DECF;
+  --border-light: #EFEBE1;
   --border-gold: rgba(184, 151, 106, 0.4);
   --accent: var(--pivoine-500);
   --accent-strong: var(--pivoine-800);
@@ -159,39 +159,7 @@
   color-scheme: light;
 }
 
-/* ── Thème sombre : encre de nuit ────────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --bg: #0E141D;
-    --bg-card: #151D29;
-    --bg-subtle: #1A2330;
-    --bg-inverse: var(--sable-300);
-    --text-primary: #EFE9DC;
-    --text-secondary: #A79F8F;
-    --text-tertiary: #746D5F;
-    --text-inverse: #141C28;
-    --border: #2B3546;
-    --border-light: #1F2836;
-    --border-gold: rgba(205, 177, 131, 0.35);
-    --accent: #D4968F;
-    --accent-strong: #E0B0AA;
-    --accent-soft: rgba(212, 150, 143, 0.1);
-    --success: #A4B69C;
-    --success-strong: #BECBB8;
-    --success-soft: rgba(164, 182, 156, 0.1);
-    --gold: #CDB183;
-    --gold-strong: #DFCCA8;
-    --gold-bright: #E8D9BC;
-    --gold-soft: rgba(205, 177, 131, 0.1);
-    --focus-ring: #CDB183;
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-    --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.5);
-
-    color-scheme: dark;
-  }
-}
-
+/* ── Thème sombre : encre de nuit — uniquement sur choix explicite ── */
 :root[data-theme='dark'] {
   --bg: #0E141D;
   --bg-card: #151D29;
@@ -374,29 +342,13 @@ a {
   box-shadow: var(--shadow-md);
 }
 
-:root[data-theme='dark'] .btn--primary,
-:root:not([data-theme='light']) .btn--primary {
+:root[data-theme='dark'] .btn--primary {
   background: var(--sable-300);
   border-color: var(--sable-300);
   color: var(--marine-900);
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme='dark']) .btn--primary {
-    background: var(--marine-800);
-    border-color: var(--marine-800);
-    color: #F1EBDF;
-  }
-}
-
-:root[data-theme='light'] .btn--primary {
-  background: var(--marine-800);
-  border-color: var(--marine-800);
-  color: #F1EBDF;
-}
-
-:root[data-theme='dark'] .btn--primary:hover:not(:disabled),
-:root:not([data-theme='light']) .btn--primary:hover:not(:disabled) {
+:root[data-theme='dark'] .btn--primary:hover:not(:disabled) {
   background: var(--gold);
   border-color: var(--gold);
   color: var(--marine-900);

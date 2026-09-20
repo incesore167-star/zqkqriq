@@ -239,7 +239,7 @@
 .trust {
   margin-top: var(--space-16);
   border-block: 1px solid var(--border-light);
-  background: var(--bg-card);
+  background: var(--bg-subtle);
 }
 
 .trustGrid {

@@ -33,10 +33,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#FAF9F7' },
-    { media: '(prefers-color-scheme: dark)', color: '#1A1E24' },
-  ],
+  themeColor: '#FFFFFF',
 };
 
 /* Applique le thème choisi avant la première peinture pour éviter tout flash.

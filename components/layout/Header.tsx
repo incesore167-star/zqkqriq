@@ -55,11 +55,8 @@ export default function Header() {
 
   const toggleTheme = () => {
     const root = document.documentElement;
-    const dark =
-      root.dataset.theme === 'dark' ||
-      (!root.dataset.theme &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches);
-    const next = dark ? 'light' : 'dark';
+    // Blanc par défaut ; l'encre de nuit uniquement sur choix explicite.
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next;
     try {
       localStorage.setItem('lpb-theme', next);
