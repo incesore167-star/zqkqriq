@@ -41,10 +41,13 @@ function Icon({ name }: { name: 'heart' | 'bag' | 'menu' | 'close' | 'theme' }) 
 
 export default function Header() {
   const { cartCount, setDrawerOpen } = useStore();
-  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => setMenuOpen(false), [pathname]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
