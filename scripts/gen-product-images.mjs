@@ -1,9 +1,9 @@
-// Génère des visuels produit SVG minimalistes (placeholders élégants)
-// à remplacer par de vraies photos avant le lancement.
+// Visuels produit SVG — édition luxe : arche architecturale, tons profonds,
+// filet or champagne. Placeholders à remplacer par de vraies photos.
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const SHAPES = {
-  // silhouettes simples, viewBox 0 0 200 200
+  // silhouettes, boîte 200x200, posées dans l'arche
   onesie:
     'M62 46 L86 30 Q100 42 114 30 L138 46 L160 80 L138 98 L133 84 L133 128 Q121 150 108 150 L108 138 L92 138 L92 150 Q79 150 67 128 L67 84 L62 98 L40 80 Z',
   tshirt:
@@ -17,13 +17,15 @@ const SHAPES = {
     'M62 60 Q100 44 138 60 L138 96 Q100 112 62 96 Z M78 100 L78 156 L96 156 L96 104 Z M104 104 L104 168 L122 168 L122 100 Z',
 };
 
+const GOLD = '#B8976A';
+
 const PALETTES = {
-  pivoine: { bg: '#F8F0EF', blob: '#EEDCDA', shape: '#C4827B' },
-  sauge: { bg: '#F2F4F1', blob: '#E1E6DF', shape: '#94A68C' },
-  dore: { bg: '#F6F3ED', blob: '#EBE2D5', shape: '#B8976A' },
-  marine: { bg: '#E6E7EA', blob: '#C4C8CD', shape: '#2E3B4E' },
-  ardoise: { bg: '#EAEAEA', blob: '#CFCECD', shape: '#54504C' },
-  sable: { bg: '#F6F4F1', blob: '#EBE2D5', shape: '#A9A8A5' },
+  pivoine: { bg: '#F5EBE6', arch: '#E7CFC9', shape: '#9E5F58' },
+  sauge: { bg: '#EFF2EA', arch: '#D8E0CE', shape: '#66775E' },
+  dore: { bg: '#F6EFE1', arch: '#E9DBC0', shape: '#96733F' },
+  marine: { bg: '#EBEDEC', arch: '#CBD1D8', shape: '#26334A' },
+  ardoise: { bg: '#EFEDE8', arch: '#D9D4CA', shape: '#48443D' },
+  sable: { bg: '#F6F1E7', arch: '#E5DCC8', shape: '#A6987B' },
 };
 
 const PRODUCTS = [
@@ -41,10 +43,15 @@ const PRODUCTS = [
   ['echarpe-douceur', 'scarf', 'pivoine'],
 ];
 
-const svg = (shape, pal) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <rect width="200" height="200" fill="${pal.bg}"/>
-  <circle cx="100" cy="104" r="72" fill="${pal.blob}"/>
-  <path d="${SHAPES[shape]}" fill="${pal.shape}" fill-rule="evenodd"/>
+// arche : pied à y=430, sommet arrondi
+const svg = (shape, pal) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <rect width="400" height="500" fill="${pal.bg}"/>
+  <path d="M80 430 L80 220 A120 120 0 0 1 320 220 L320 430 Z" fill="${pal.arch}"/>
+  <path d="M92 430 L92 222 A108 108 0 0 1 308 222 L308 430 Z" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity="0.75"/>
+  <g transform="translate(100,190)">
+    <path d="${SHAPES[shape]}" fill="${pal.shape}" fill-rule="evenodd"/>
+  </g>
+  <line x1="140" y1="458" x2="260" y2="458" stroke="${GOLD}" stroke-width="1" opacity="0.6"/>
 </svg>
 `;
 
@@ -52,4 +59,4 @@ mkdirSync('public/images/products', { recursive: true });
 for (const [slug, shape, palette] of PRODUCTS) {
   writeFileSync(`public/images/products/${slug}.svg`, svg(shape, PALETTES[palette]));
 }
-console.log(`${PRODUCTS.length} visuels générés dans public/images/products/`);
+console.log(`${PRODUCTS.length} visuels luxe générés`);

@@ -59,13 +59,15 @@ export default function Home() {
       <section className={styles.hero}>
         <div className="container">
           <div className={styles.heroInner}>
+            <p className={styles.heroKicker}>Maison française · 0–14 ans</p>
             <h1 className={styles.heroTitle}>
-              L&apos;Élégance à la <em>Française</em>, taille 3 mois à 14 ans
+              L&apos;Élégance à la <em>Française</em>,<br />
+              dès le premier âge
             </h1>
             <p className={styles.heroText}>
-              Des matières douces, des coupes justes, des couleurs qui
-              traversent les saisons. Chaque pièce est pensée pour être portée,
-              lavée, transmise.
+              Des matières nobles, des coupes justes, des couleurs qui
+              traversent les saisons. Chaque pièce est dessinée à Paris,
+              pensée pour être portée, lavée, transmise.
             </p>
             <div className={styles.heroActions}>
               <Link href="/boutique" className="btn btn--primary btn--lg">
@@ -158,11 +160,15 @@ export default function Home() {
       <section className={`container ${styles.section}`}>
         <div className={styles.story}>
           <div className={styles.storyVisual}>
-            « Des vêtements qu&apos;on se passe de grand frère en petite sœur »
+            <p className={styles.storyQuote}>
+              Des vêtements qu&apos;on se passe de grand frère en petite sœur
+            </p>
           </div>
           <div className={styles.storyText}>
             <p className="section-eyebrow">Notre histoire</p>
-            <h2 className="section-title">Faits pour durer, dessinés pour être aimés</h2>
+            <h2 className="section-title">
+              Faits pour durer, dessinés pour être <em>aimés</em>
+            </h2>
             <p>
               Les Ptits Bens est née d&apos;une conviction simple : les
               vêtements d&apos;enfants doivent survivre aux enfants. Genoux
@@ -175,6 +181,7 @@ export default function Home() {
               compliment qu&apos;on puisse recevoir, c&apos;est un vêtement
               transmis au petit frère.
             </p>
+            <p className={styles.storySignature}>— La maison Les Ptits Bens</p>
           </div>
         </div>
       </section>
