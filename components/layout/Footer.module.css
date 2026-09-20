@@ -30,9 +30,9 @@
 }
 
 .tagline {
-  color: #9C9481;
+  color: #ADA491;
   font-size: var(--text-sm);
-  font-weight: 300;
+  font-weight: 400;
   max-width: 32ch;
   line-height: 1.8;
   margin: 0;
@@ -58,10 +58,10 @@
 }
 
 .links a {
-  color: #B3AB99;
+  color: #C2B9A5;
   text-decoration: none;
   font-size: var(--text-sm);
-  font-weight: 300;
+  font-weight: 400;
   transition: color var(--duration-fast) var(--ease);
 }
 
@@ -70,9 +70,9 @@
 }
 
 .newsText {
-  color: #9C9481;
+  color: #ADA491;
   font-size: var(--text-sm);
-  font-weight: 300;
+  font-weight: 400;
   margin: var(--space-2) 0 var(--space-4);
 }
 
@@ -110,7 +110,7 @@
 }
 
 .consent a {
-  color: #9C9481;
+  color: #ADA491;
 }
 
 .bottom {

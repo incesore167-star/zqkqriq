@@ -130,16 +130,16 @@
   --text-3xl: 2.75rem;
   --text-4xl: 3.75rem;
 
-  --tracking-wide: 0.18em;
+  --tracking-wide: 0.14em;
 
   /* ── Tokens fonctionnels — thème clair (blanc pur) ─────────── */
   --bg: #FFFFFF;
   --bg-card: #FFFFFF;
   --bg-subtle: #F8F5EF;
   --bg-inverse: var(--marine-800);
-  --text-primary: #1B2431;
-  --text-secondary: #5A554C;
-  --text-tertiary: #938C7E;
+  --text-primary: #16202C;
+  --text-secondary: #4B463E;
+  --text-tertiary: #7D7668;
   --text-inverse: #F1EBDF;
   --border: #E4DECF;
   --border-light: #EFEBE1;
@@ -210,7 +210,7 @@ body {
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: var(--text-base);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   transition: background-color var(--duration-base) var(--ease);
@@ -221,7 +221,8 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.12;
+  /* 1.2 laisse respirer les capitales accentuées (É, Ê) sans rognage */
+  line-height: 1.2;
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
@@ -426,7 +427,7 @@ a {
   border-bottom: 1px solid var(--border);
   border-radius: 0;
   color: var(--text-primary);
-  font-weight: 300;
+  font-weight: 400;
   transition: border-color var(--duration-base) var(--ease);
 }
 

@@ -123,9 +123,9 @@
 }
 
 .price {
-  font-weight: 400;
-  font-size: var(--text-sm);
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  font-size: var(--text-base);
+  letter-spacing: 0.02em;
 }
 
 .compareAt {
