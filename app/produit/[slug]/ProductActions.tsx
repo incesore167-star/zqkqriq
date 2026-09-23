@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import type { Product } from '@/lib/catalog';
+import { useRef, useState } from 'react';
+import { formatPrice, type Product } from '@/lib/catalog';
+import Modal from '@/components/layout/Modal';
 import { useStore } from '@/lib/store';
 import styles from './produit.module.css';
 
@@ -28,11 +29,14 @@ export default function ProductActions({ product }: { product: Product }) {
   const [error, setError] = useState('');
   const [added, setAdded] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
+  const sizesRef = useRef<HTMLDivElement>(null);
   const wished = wishlist.includes(product.slug);
 
   const handleAdd = () => {
     if (!size) {
       setError('Choisissez une taille pour continuer.');
+      sizesRef.current?.scrollIntoView({ block: 'center', behavior: 'instant' });
+      sizesRef.current?.querySelector<HTMLButtonElement>('button:not(:disabled)')?.focus({ preventScroll: true });
       return;
     }
     setError('');
@@ -55,7 +59,7 @@ export default function ProductActions({ product }: { product: Product }) {
           Guide des tailles
         </button>
       </div>
-      <div className={styles.sizes} role="group" aria-labelledby="size-label">
+      <div ref={sizesRef} className={styles.sizes} role="group" aria-labelledby="size-label" aria-describedby={error ? 'size-error' : undefined}>
         {product.sizes.map((s) => {
           const out = product.outOfStock?.includes(s);
           return (
@@ -97,22 +101,16 @@ export default function ProductActions({ product }: { product: Product }) {
           </span>
         </button>
       </div>
-      <p className={styles.hint} role="alert">
+      <p id="size-error" className={styles.hint} role="alert">
         {error}
       </p>
 
-      {guideOpen && (
-        <div
-          className={styles.modalOverlay}
-          onClick={() => setGuideOpen(false)}
-        >
-          <div
-            className={styles.modal}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Guide des tailles"
-            onClick={(e) => e.stopPropagation()}
-          >
+      <div className={styles.mobilePurchase} data-product-actions>
+        <div><strong>{formatPrice(product.price)}</strong><span>{size ? `Taille ${size}` : 'Choisissez votre taille'}</span></div>
+        <button type="button" className="btn btn--primary" onClick={handleAdd}>{size ? 'Ajouter au panier' : 'Choisir ma taille'} <span aria-hidden="true">↗</span></button>
+      </div>
+
+      <Modal open={guideOpen} onClose={() => setGuideOpen(false)} className={styles.modal} label="Guide des tailles">
             <h2 className="section-title">Guide des tailles</h2>
             <table className={styles.sizeTable}>
               <thead>
@@ -149,9 +147,7 @@ export default function ProductActions({ product }: { product: Product }) {
             >
               Fermer
             </button>
-          </div>
-        </div>
-      )}
+      </Modal>
     </>
   );
 }

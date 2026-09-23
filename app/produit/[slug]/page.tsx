@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ProductCard from '@/components/product/ProductCard';
+import ProductGallery from '@/components/product/ProductGallery';
+import ProductStory, { type StoryItem } from '@/components/product/ProductStory';
 import {
   PRODUCTS,
   discountPercent,
@@ -10,6 +11,8 @@ import {
   getCategory,
   getProduct,
   productImage,
+  productVariantImages,
+  productViews,
 } from '@/lib/catalog';
 import ProductActions, { ProductTabs } from './ProductActions';
 import styles from './produit.module.css';
@@ -40,8 +43,48 @@ export default async function ProductPage({ params }: Props) {
   const category = getCategory(product.category)!;
   const promo = discountPercent(product);
   const related = PRODUCTS.filter(
-    (p) => p.category === product.category && p.slug !== product.slug,
+    (p) => p.photo && p.category === product.category && p.slug !== product.slug,
   ).slice(0, 4);
+  const views = productViews(product);
+  const variantImages = productVariantImages(product);
+
+  const story: StoryItem[] = product.photo
+    ? [
+        {
+          suffix: 'trois-quarts',
+          eyebrow: 'La coupe',
+          title: 'Des proportions justes',
+          text: 'Volume maîtrisé, épaules nettes, longueur étudiée : une silhouette qui reste élégante même emmitouflée en plein hiver.',
+        },
+        {
+          suffix: 'detail-capuche',
+          eyebrow: 'La capuche',
+          title: 'Le détail qui fait tout',
+          text: 'Bien dessinée, bien doublée : elle tient en place sans serrer, protège du vent et donne à la pièce tout son caractère.',
+        },
+        {
+          suffix: 'detail-matiere',
+          eyebrow: 'La matière',
+          title: 'On la reconnaît au toucher',
+          text: `${product.composition} ${product.care}`,
+        },
+        {
+          suffix: 'dos',
+          eyebrow: 'Vue de dos',
+          title: 'Soignée sous tous les angles',
+          text: 'Matelassage régulier, coutures alignées, finitions nettes — même là où on ne regarde pas.',
+        },
+        {
+          suffix: 'mouvement',
+          eyebrow: 'En mouvement',
+          title: 'Conçue pour courir',
+          text: 'Assez légère pour être oubliée, assez chaude pour rester dehors des heures : elle suit chaque saut et chaque course.',
+        },
+      ].map(({ suffix, ...rest }) => ({
+        src: `/images/products/${product.slug}-${suffix}.webp`,
+        ...rest,
+      }))
+    : [];
 
   return (
     <div className={`container ${styles.page}`}>
@@ -52,16 +95,13 @@ export default async function ProductPage({ params }: Props) {
       </nav>
 
       <div className={styles.layout}>
-        <div className={styles.gallery}>
-          <Image
-            src={productImage(product.slug)}
-            alt={`${product.name}, coloris ${product.colorName}`}
-            fill
-            priority
-            sizes="(max-width: 900px) 100vw, 50vw"
-            className={styles.galleryImg}
-          />
-        </div>
+        <ProductGallery
+          name={product.name}
+          colorName={product.colorName}
+          mainSrc={productImage(product.slug)}
+          views={views}
+          variants={variantImages}
+        />
 
         <div>
           <div className={styles.badges}>
@@ -76,7 +116,8 @@ export default async function ProductPage({ params }: Props) {
 
           <h1 className={styles.name}>{product.name}</h1>
           <p className={styles.color}>
-            Coloris {product.colorName} · {category.name} {category.ageRange}
+            {variantImages.length === 0 && `Coloris ${product.colorName} · `}
+            {category.name} {category.ageRange}
           </p>
 
           <div className={styles.prices}>
@@ -103,6 +144,8 @@ export default async function ProductPage({ params }: Props) {
           <ProductTabs product={product} />
         </div>
       </div>
+
+      <ProductStory name={product.name} items={story} />
 
       {related.length > 0 && (
         <section className={styles.related}>

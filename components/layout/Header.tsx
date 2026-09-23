@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Modal from './Modal';
 import { CATEGORIES } from '@/lib/catalog';
 import { useStore } from '@/lib/store';
 import styles from './Header.module.css';
@@ -16,7 +17,7 @@ const NAV = [
   { href: '/boutique?tri=nouveaute', label: 'Nouveautés', age: '' },
 ];
 
-function Icon({ name }: { name: 'heart' | 'bag' | 'menu' | 'close' | 'theme' }) {
+function Icon({ name }: { name: 'heart' | 'bag' | 'menu' | 'close' | 'theme' | 'home' | 'shop' }) {
   const paths = {
     heart:
       'M12 21c-4.8-3.6-9-7-9-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4-4.2 7.4-9 11Z',
@@ -24,6 +25,8 @@ function Icon({ name }: { name: 'heart' | 'bag' | 'menu' | 'close' | 'theme' }) 
     menu: 'M4 7h16M4 12h16M4 17h16',
     close: 'M6 6l12 12M18 6L6 18',
     theme: 'M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z',
+    home: 'M3 11l9-8 9 8M5 10v11h5v-7h4v7h5V10',
+    shop: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z',
   };
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -40,7 +43,7 @@ function Icon({ name }: { name: 'heart' | 'bag' | 'menu' | 'close' | 'theme' }) 
 }
 
 export default function Header() {
-  const { cartCount, setDrawerOpen } = useStore();
+  const { cartCount, wishlist, setDrawerOpen } = useStore();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [prevPathname, setPrevPathname] = useState(pathname);
@@ -48,13 +51,6 @@ export default function Header() {
     setPrevPathname(pathname);
     setMenuOpen(false);
   }
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [menuOpen]);
 
   const toggleTheme = () => {
     const root = document.documentElement;
@@ -74,7 +70,7 @@ export default function Header() {
         Aller au contenu
       </a>
       <p className={styles.announce}>
-        Livraison offerte dès 60 € · Retour gratuit 30 jours
+        Livraison offerte dès 60 € <span>· Retours gratuits 30 jours</span>
       </p>
       <header className={styles.header}>
         <div className={`container ${styles.inner}`}>
@@ -103,7 +99,7 @@ export default function Header() {
           <div className={styles.actions}>
             <button
               type="button"
-              className={styles.iconBtn}
+              className={`${styles.iconBtn} ${styles.desktopAction}`}
               aria-label="Changer de thème"
               onClick={toggleTheme}
             >
@@ -111,7 +107,7 @@ export default function Header() {
             </button>
             <Link
               href="/favoris"
-              className={styles.iconBtn}
+              className={`${styles.iconBtn} ${styles.desktopAction}`}
               aria-label="Mes favoris"
             >
               <Icon name="heart" />
@@ -133,17 +129,20 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Tiroir mobile */}
-      <div
-        className={`${styles.overlay} ${menuOpen ? styles.overlayOpen : ''}`}
-        onClick={() => setMenuOpen(false)}
-        aria-hidden="true"
-      />
-      <div
-        className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menu de navigation"
+      {!pathname.startsWith('/produit/') && (
+        <nav className={styles.bottomNav} aria-label="Navigation mobile">
+          <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}><Icon name="home" /><span>Accueil</span></Link>
+          <Link href="/boutique" aria-current={pathname === '/boutique' ? 'page' : undefined}><Icon name="shop" /><span>Boutique</span></Link>
+          <Link href="/favoris" aria-current={pathname === '/favoris' ? 'page' : undefined}><Icon name="heart" /><span>Favoris{wishlist.length > 0 ? ` (${wishlist.length})` : ''}</span></Link>
+          <button type="button" onClick={() => setDrawerOpen(true)}><Icon name="bag" /><span>Panier{cartCount > 0 ? ` (${cartCount})` : ''}</span></button>
+        </nav>
+      )}
+
+      <Modal
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        className={styles.drawer}
+        label="Menu de navigation"
       >
         <div className={styles.drawerHead}>
           <span className={styles.logo}>
@@ -158,13 +157,17 @@ export default function Header() {
             <Icon name="close" />
           </button>
         </div>
+        <p className={styles.drawerEyebrow}>À chaque âge, son univers</p>
+        <Link href="/boutique" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>Toute la collection <span aria-hidden="true">↗</span></Link>
         {NAV.map((item) => (
-          <Link key={item.label} href={item.href} className={styles.drawerLink}>
+          <Link key={item.label} href={item.href} className={styles.drawerLink} onClick={() => setMenuOpen(false)}>
             {item.label}
             {item.age && <span className={styles.drawerAge}>{item.age}</span>}
           </Link>
         ))}
-      </div>
+        <button type="button" className={styles.themeToggle} onClick={toggleTheme}><Icon name="theme" /> Changer de thème</button>
+        <p className={styles.drawerNote}>Les petites pièces des grands moments.</p>
+      </Modal>
     </>
   );
 }

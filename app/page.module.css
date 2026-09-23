@@ -32,6 +32,7 @@
   position: relative;
   padding-block: var(--space-16);
   max-width: 720px;
+  min-width: 0;
 }
 
 .heroKicker {
@@ -382,7 +383,7 @@
   }
 
   .catGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4);
   }
 
@@ -397,10 +398,63 @@
   }
 
   .heroInner {
-    padding-block: var(--space-15);
+    padding-block: 36px;
   }
 
   .section {
     padding-top: var(--space-15);
   }
+}
+
+.heroLayout { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 56px; }
+.heroVisual { position: relative; display: block; height: 560px; align-self: end; margin-top: 40px; border-radius: 220px 220px 0 0; overflow: hidden; background: #f1f0eb; text-decoration: none; }
+.heroImage { object-fit: cover; object-position: center 24%; }
+.heroTag { position: absolute; top: 24px; left: 50%; transform: translateX(-50%); background: #fffdf5e8; color: #55412a; border: 1px solid #dfcca8; border-radius: 40px; padding: 6px 14px; white-space: nowrap; font-size: .65rem; letter-spacing: .06em; }
+.heroCaption { position: absolute; inset: auto 16px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #fffdf5f2; color: #16202c; padding: 14px 18px; border: 1px solid #e4decf; font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; }
+.heroCaption small { display: block; margin-top: 4px; font-family: var(--font-body); font-size: .7rem; color: #635b47; }
+.heroCaption > span:last-child { font-family: var(--font-body); }
+.quickTrust { display: flex; justify-content: center; gap: 48px; padding: 13px 20px; background: var(--bg-subtle); border-bottom: 1px solid var(--border-light); font-size: .75rem; color: var(--text-secondary); }
+.catArrow { color: var(--gold-strong); font-size: 1.2rem; margin-top: 8px; }
+
+@media (max-width: 1100px) {
+  .heroLayout { gap: 24px; }
+  .heroTitle { font-size: clamp(2.6rem, 5.5vw, 4.5rem); }
+  .heroVisual { height: 500px; }
+  .heroInner { padding-block: 64px; }
+}
+
+@media (max-width: 640px) {
+  .heroLayout { display: flex; flex-direction: column; gap: 0; }
+  .heroInner { padding-block: 30px 24px; width: 100%; text-align: center; }
+  .heroKicker { justify-content: center; font-size: .62rem; letter-spacing: .16em; margin-bottom: 16px; gap: 10px; }
+  .heroKicker::before { width: 24px; }
+  .heroTitle { font-size: clamp(2.55rem, 11vw, 3.7rem); line-height: 1.02; margin-bottom: 14px; }
+  .heroText { font-size: .875rem; line-height: 1.65; max-width: 37ch; margin: 0 auto 20px; }
+  .heroActions { display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .heroActions :global(.btn--primary) { width: 100%; justify-content: space-between; }
+  .heroActions :global(.btn--outline) { border: 0; min-height: 44px; padding-block: 8px; text-decoration: underline; text-underline-offset: 5px; }
+  .heroVisual { height: 280px; width: 100%; margin-top: 0; border-radius: 150px 150px 0 0; }
+  .heroImage { object-position: center top; }
+  .heroTag { display: none; }
+  .heroCaption { inset: auto 12px 12px; padding: 10px 14px; font-size: 1.2rem; }
+  .quickTrust { gap: 16px; padding: 12px; font-size: .65rem; }
+  .quickTrust span + span { border-left: 1px solid var(--border); padding-left: 16px; }
+  .section { padding-top: 40px; }
+  .sectionHead { margin-bottom: 20px; align-items: center; gap: 12px; }
+  .seeAll { min-height: 44px; display: flex; align-items: center; font-size: .64rem; letter-spacing: .08em; }
+  .catGrid { gap: 12px; }
+  .catCard { align-items: flex-start; text-align: left; padding: 20px 16px; border-radius: 12px; background: var(--tint); }
+  .catCard::before { display: none; }
+  .catAge { font-size: .61rem; letter-spacing: .1em; }
+  .catName { font-size: 1.7rem; }
+  .catDesc { font-size: .76rem; line-height: 1.5; margin-top: 4px; }
+  .catArrow { align-self: flex-end; margin-top: auto; }
+  .carousel { grid-auto-columns: 65%; gap: 14px; margin-inline: -20px; padding-inline: 20px; scroll-padding-inline: 20px; }
+  .grid { gap: 20px 12px; }
+  .trust { margin-top: 44px; }
+  .trustGrid { padding-block: 28px; gap: 24px 16px; }
+  .trustTitle { font-size: 1.05rem; }
+  .trustText { font-size: .7rem; line-height: 1.5; margin-top: 4px; }
+  .trustIcon { width: 44px; height: 44px; }
+  .storyVisual { aspect-ratio: auto; min-height: 260px; border-radius: 120px 120px 8px 8px; }
 }

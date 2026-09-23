@@ -22,6 +22,10 @@ export interface Product {
   care: string;
   featured?: boolean;
   isNew?: boolean;
+  /** true = vraie photo WebP dans public/images/products, sinon placeholder SVG */
+  photo?: boolean;
+  /** autres coloris disponibles en photo : suffixe de fichier + nom affiché */
+  variants?: { name: string; file: string }[];
 }
 
 export const CATEGORIES: Category[] = [
@@ -204,6 +208,170 @@ export const PRODUCTS: Product[] = [
     composition: '50 % laine, 50 % acrylique.',
     care: 'Lavage main, séchage à plat.',
   },
+  // — Collection hiver : photos studio (dossier public/images/products) —
+  {
+    slug: 'doudoune-col-montant-premium',
+    name: 'Doudoune premium col montant',
+    price: 79,
+    category: 'enfant',
+    sizes: ENFANT_SIZES,
+    isNew: true,
+    badge: 'nouveau',
+    colorName: 'Jaune orange',
+    description:
+      "Notre doudoune la plus aboutie : enveloppe enduite Teflon™ triple protection (anti-eau, anti-taches), col montant coupe-vent et garnissage premium en duvet d'oie. Chaude, légère, increvable.",
+    composition: "Garnissage 95 % duvet d'oie. Enveloppe polyamide, enduction Teflon™ DuPont.",
+    care: 'Lavage 30° cycle délicat, séchage tambour très doux. Pas de repassage.',
+    featured: true,
+    photo: true,
+    variants: [
+      { name: 'Rose', file: 'rose' },
+      { name: 'Vert forêt', file: 'vert-foret' },
+      { name: 'Noir gris', file: 'noir-gris' },
+      { name: 'Bleu', file: 'bleu' },
+      { name: 'Kaki', file: 'kaki' },
+      { name: 'Caramel', file: 'caramel' },
+      { name: 'Violet', file: 'violet' },
+    ],
+  },
+  {
+    slug: 'doudoune-oreilles-lapin',
+    name: 'Doudoune longue Oreilles de lapin',
+    price: 65,
+    category: 'enfant',
+    sizes: ENFANT_SIZES,
+    isNew: true,
+    colorName: 'Gris anthracite',
+    description:
+      'Une doudoune longueur genou au tissu Ultsoft ultra-doux, couronnée de deux oreilles de lapin matelassées sur la capuche. Le manteau qui fait courir vers l’école en plein hiver.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Enveloppe polyester Ultsoft.',
+    care: 'Lavage 30° cycle délicat, séchage tambour doux.',
+    photo: true,
+    variants: [
+      { name: 'Violet orchidée', file: 'violet-orchidee' },
+      { name: 'Rouge vif', file: 'rouge-vif' },
+    ],
+  },
+  {
+    slug: 'doudoune-color-block-ours',
+    name: 'Doudoune color-block Ours',
+    price: 69,
+    category: 'enfant',
+    sizes: ENFANT_SIZES,
+    colorName: 'Vert foncé',
+    description:
+      'Panneaux color-block contrastés, grande capuche à oreilles d’ours 3D, longueur sous le genou : la doudoune qui tient chaud jusqu’aux mollets sans rien perdre en style.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Enveloppe polyester.',
+    care: 'Lavage 30° cycle délicat, séchage tambour doux.',
+    photo: true,
+    variants: [{ name: 'Violet orchidée', file: 'violet-orchidee' }],
+  },
+  {
+    slug: 'doudoune-capuche-ours',
+    name: 'Doudoune à capuche Ours',
+    price: 62,
+    category: 'enfant',
+    sizes: ENFANT_SIZES,
+    colorName: 'Café',
+    description:
+      'Mi-longue, matelassage horizontal moelleux, deux grandes poches à rabat et des oreilles d’ours rembourrées sur la capuche. Un classique du vestiaire d’hiver.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Enveloppe nylon mat.',
+    care: 'Lavage 30° cycle délicat, séchage tambour doux.',
+    photo: true,
+    variants: [{ name: 'Blanc cassé', file: 'blanc-casse' }],
+  },
+  {
+    slug: 'doudoune-imprimee',
+    name: 'Doudoune imprimée',
+    price: 59,
+    category: 'enfant',
+    sizes: ENFANT_SIZES,
+    colorName: 'Petites étoiles',
+    description:
+      'Impression numérique précise et résistante à la décoloration, huit imprimés au choix — étoiles, cerises, fleurs, nœuds… Le duvet de canard fait le reste.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Enveloppe polyester imprimée.',
+    care: 'Lavage 30° sur l’envers, cycle délicat.',
+    featured: true,
+    photo: true,
+    variants: [
+      { name: 'Petites cerises', file: 'petites-cerises' },
+      { name: 'Petites pommes', file: 'petites-pommes' },
+      { name: 'Grandes fleurs', file: 'grandes-fleurs' },
+      { name: 'Fleurs contrastées', file: 'fleurs-contrastees' },
+      { name: 'Nœuds', file: 'noeuds' },
+      { name: 'Pommes de pin', file: 'pommes-de-pin' },
+      { name: 'Color-blocks', file: 'color-blocks-distordus' },
+    ],
+  },
+  {
+    slug: 'doudoune-urban-color-block',
+    name: 'Doudoune urbaine color-block',
+    price: 59,
+    category: 'enfant',
+    sizes: ENFANT_SIZES,
+    colorName: 'Orange',
+    description:
+      'Série urbaine fonctionnelle : empiècements contrastés, matelassage vertical, capuche intégrée. Existe aussi en gilet sans manches pour la mi-saison.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Enveloppe polyester déperlant.',
+    care: 'Lavage 30° cycle délicat, séchage tambour doux.',
+    photo: true,
+    variants: [
+      { name: 'Abricot', file: 'abricot' },
+      { name: 'Gilet vert pomme', file: 'vert-pomme' },
+      { name: 'Gilet vert foncé', file: 'vert-fonce' },
+    ],
+  },
+  {
+    slug: 'combinaison-bebe-imprimee',
+    name: 'Combinaison Fleurs rétro',
+    price: 55,
+    category: 'bebe',
+    sizes: BEBE_SIZES,
+    colorName: 'Fleurs rétro',
+    description:
+      'Combinaison pilote intégrale en duvet, liseré de dentelle en coton sur la patte de boutonnage et poignets bord-côte. L’imprimé fleuri rétro fait le reste du charme.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Liseré 100 % coton.',
+    care: 'Lavage 30° cycle délicat, séchage à plat.',
+    photo: true,
+    variants: [
+      { name: 'Petit écureuil', file: 'petit-ecureuil' },
+      { name: 'Fleurs contrastées', file: 'fleurs-contrastees' },
+    ],
+  },
+  {
+    slug: 'combinaison-bebe-voiture',
+    name: 'Combinaison Petite Voiture',
+    price: 55,
+    category: 'bebe',
+    sizes: BEBE_SIZES,
+    colorName: 'Blanc cassé',
+    description:
+      'Bicolore, capuche à petites oreilles et appliqué petite voiture aux roues rondes sur le ventre. Zip intégral pour l’habiller sans bataille, chevilles et poignets bord-côte.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Enveloppe polyester douce.',
+    care: 'Lavage 30° cycle délicat, séchage à plat.',
+    photo: true,
+    variants: [
+      { name: 'Kaki', file: 'kaki' },
+      { name: 'Jaune', file: 'jaune' },
+    ],
+  },
+  {
+    slug: 'combinaison-bebe-dinosaure',
+    name: 'Combinaison Dinosaure',
+    price: 59,
+    category: 'bebe',
+    sizes: BEBE_SIZES,
+    isNew: true,
+    badge: 'nouveau',
+    colorName: 'Rouge vif',
+    description:
+      'Enveloppe enduite Teflon™ anti-taches (indispensable à cet âge), petites cornes sur la capuche et dinosaure appliqué en 3D sur le ventre. Le hit des sorties d’hiver.',
+    composition: 'Garnissage 85 % duvet de canard blanc. Enveloppe enduction Teflon™ DuPont.',
+    care: 'Lavage 30° cycle délicat, séchage à plat.',
+    featured: true,
+    photo: true,
+    variants: [{ name: 'Blanc cassé', file: 'blanc-casse' }],
+  },
   {
     slug: 'echarpe-douceur',
     name: 'Écharpe Douceur',
@@ -225,7 +393,35 @@ export const getProduct = (slug: string) =>
 export const getCategory = (slug: string) =>
   CATEGORIES.find((c) => c.slug === slug);
 
-export const productImage = (slug: string) => `/images/products/${slug}.svg`;
+export const productImage = (slug: string) => {
+  const p = getProduct(slug);
+  return `/images/products/${slug}.${p?.photo ? 'webp' : 'svg'}`;
+};
+
+const VIEW_LABELS: [suffix: string, label: string][] = [
+  ['trois-quarts', 'Vue de trois quarts'],
+  ['dos', 'Vue de dos'],
+  ['detail-capuche', 'Détail capuche'],
+  ['detail-matiere', 'Détail matière'],
+  ['produit-seul', 'Produit seul'],
+  ['mouvement', 'En mouvement'],
+];
+
+/** Vues additionnelles (photos studio uniquement). */
+export const productViews = (p: Product) =>
+  p.photo
+    ? VIEW_LABELS.map(([suffix, label]) => ({
+        src: `/images/products/${p.slug}-${suffix}.webp`,
+        label,
+      }))
+    : [];
+
+/** Autres coloris photographiés. */
+export const productVariantImages = (p: Product) =>
+  (p.variants ?? []).map((v) => ({
+    src: `/images/products/${p.slug}-${v.file}.webp`,
+    label: v.name,
+  }));
 
 export const discountPercent = (p: Product) =>
   p.compareAtPrice

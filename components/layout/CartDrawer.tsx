@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import Modal from './Modal';
 import {
   FREE_SHIPPING_THRESHOLD,
   formatPrice,
@@ -16,29 +16,16 @@ export default function CartDrawer() {
   const { cart, drawerOpen, setDrawerOpen, updateQty, removeLine, cartTotal } =
     useStore();
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setDrawerOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [setDrawerOpen]);
-
   const remaining = FREE_SHIPPING_THRESHOLD - cartTotal;
   const progress = Math.min(100, (cartTotal / FREE_SHIPPING_THRESHOLD) * 100);
 
   return (
     <>
-      <div
-        className={`${styles.overlay} ${drawerOpen ? styles.overlayOpen : ''}`}
-        onClick={() => setDrawerOpen(false)}
-        aria-hidden="true"
-      />
-      <aside
-        className={`${styles.panel} ${drawerOpen ? styles.panelOpen : ''}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Panier"
+      <Modal
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        className={styles.panel}
+        label="Panier"
       >
         <div className={styles.head}>
           <h2 className={styles.title}>Votre panier</h2>
@@ -83,7 +70,7 @@ export default function CartDrawer() {
             <p className={styles.empty}>
               Votre panier est vide.
               <br />
-              <Link href="/boutique">Découvrir la collection</Link>
+              <Link href="/boutique" onClick={() => setDrawerOpen(false)}>Découvrir la collection</Link>
             </p>
           )}
           {cart.map((line) => {
@@ -155,7 +142,7 @@ export default function CartDrawer() {
             </Link>
           </div>
         )}
-      </aside>
+      </Modal>
     </>
   );
 }

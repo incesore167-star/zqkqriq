@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import ProductCard from '@/components/product/ProductCard';
+import Modal from '@/components/layout/Modal';
 import {
   CATEGORIES,
   PRODUCTS,
@@ -61,9 +62,16 @@ export default function CatalogClient() {
         break;
       case 'nouveaute':
         list = [...list].sort(
-          (a, b) => Number(b.isNew ?? false) - Number(a.isNew ?? false),
+          (a, b) =>
+            Number(b.isNew ?? false) - Number(a.isNew ?? false) ||
+            Number(b.photo ?? false) - Number(a.photo ?? false),
         );
         break;
+      default:
+        // pertinence : les produits photographiés d'abord
+        list = [...list].sort(
+          (a, b) => Number(b.photo ?? false) - Number(a.photo ?? false),
+        );
     }
     return list;
   }, [cat, prices, promoOnly, tri]);
@@ -71,14 +79,14 @@ export default function CatalogClient() {
   const category = cat ? getCategory(cat) : null;
   const title = category ? category.name : 'Toute la collection';
 
-  const filtersBody = (
+  const filtersBody = (scope: string) => (
     <>
       <fieldset className={styles.filterGroup}>
         <legend>Univers</legend>
         <label className={styles.filterOption}>
           <input
             type="radio"
-            name="cat"
+            name={`cat-${scope}`}
             checked={!cat}
             onChange={() => setParam('cat', null)}
           />
@@ -88,7 +96,7 @@ export default function CatalogClient() {
           <label key={c.slug} className={styles.filterOption}>
             <input
               type="radio"
-              name="cat"
+              name={`cat-${scope}`}
               checked={cat === c.slug}
               onChange={() => setParam('cat', c.slug)}
             />
@@ -155,18 +163,19 @@ export default function CatalogClient() {
       <div className={styles.head}>
         <div>
           <h1 className="section-title">{title}</h1>
-          <p className={styles.count}>
+          <p className={styles.count} role="status">
             {products.length} article{products.length > 1 ? 's' : ''}
             {category && ` · ${category.ageRange}`}
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+        <div className={styles.toolbar}>
           <button
             type="button"
             className={`btn btn--outline btn--sm ${styles.filterToggle}`}
             onClick={() => setMobileOpen(true)}
+            aria-haspopup="dialog"
           >
-            Filtres
+            <span aria-hidden="true">☷</span> Filtres{prices.length + Number(promoOnly) > 0 ? ` (${prices.length + Number(promoOnly)})` : ''}
           </button>
           <label>
             <span className="visually-hidden">Trier par</span>
@@ -185,19 +194,21 @@ export default function CatalogClient() {
         </div>
       </div>
 
+      <nav className={styles.categoryChips} aria-label="Choisir un univers">
+        <Link href="/boutique" aria-current={!cat ? 'page' : undefined}>Tout</Link>
+        {CATEGORIES.map((c) => <Link key={c.slug} href={`/boutique?cat=${c.slug}`} aria-current={cat === c.slug ? 'page' : undefined}>{c.name} <span>{c.ageRange}</span></Link>)}
+      </nav>
+
       <div className={styles.layout}>
-        {mobileOpen && (
-          <div
-            className={styles.filtersOverlay}
-            onClick={() => setMobileOpen(false)}
-            aria-hidden="true"
-          />
-        )}
         <aside
-          className={`${styles.filters} ${mobileOpen ? styles.filtersOpen : ''}`}
+          className={styles.filters}
           aria-label="Filtres"
         >
-          {filtersBody}
+          {filtersBody('desktop')}
+        </aside>
+        <Modal open={mobileOpen} onClose={() => setMobileOpen(false)} label="Filtrer la collection" className={styles.filterSheet}>
+          <div className={styles.sheetHead}><h2>Affiner la sélection</h2><button type="button" aria-label="Fermer les filtres" onClick={() => setMobileOpen(false)}>×</button></div>
+          <div className={styles.sheetBody}>{filtersBody('mobile')}</div>
           <button
             type="button"
             className={`btn btn--primary ${styles.applyBtn} ${styles.filterToggle}`}
@@ -205,7 +216,7 @@ export default function CatalogClient() {
           >
             Voir {products.length} résultat{products.length > 1 ? 's' : ''}
           </button>
-        </aside>
+        </Modal>
 
         <div className={styles.grid}>
           {products.length === 0 && (

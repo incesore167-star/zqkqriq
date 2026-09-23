@@ -62,7 +62,8 @@ export default function ProductCard({ product }: { product: Product }) {
         <Image
           src={productImage(product.slug)}
           alt=""
-          fill
+          width={640}
+          height={800}
           /* 320px couvre le plus large des contextes : la grille catalogue
              rend la carte à 308px (l'accueil à 286px). */
           sizes="(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 320px"

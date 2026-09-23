@@ -202,6 +202,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 84px;
 }
 
 body {
@@ -253,7 +254,7 @@ a {
 }
 
 :focus-visible {
-  outline: 1px solid var(--focus-ring);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -509,4 +510,23 @@ a {
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+button, a, input, select, summary { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+dialog:not([open]) { display: none; }
+dialog { overscroll-behavior: contain; }
+
+@media (max-width: 900px) {
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .btn { min-height: 48px; height: auto; padding-block: 12px; }
+  .btn--lg { min-height: 52px; }
+  input, select, textarea { font-size: 16px; }
+}
+
+@media (max-width: 640px) {
+  :root { --text-3xl: 2.1rem; --space-15: 52px; --space-16: 64px; }
+  .section-title { margin-bottom: 8px; }
+  .section-eyebrow { font-size: .65rem; margin-bottom: 8px; gap: 10px; }
+  .section-eyebrow::before { width: 24px; }
+  .btn { letter-spacing: .07em; padding-inline: 20px; }
 }

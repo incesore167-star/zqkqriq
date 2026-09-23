@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import ProductCard from '@/components/product/ProductCard';
 import { CATEGORIES, PRODUCTS } from '@/lib/catalog';
 import styles from './page.module.css';
@@ -49,29 +50,34 @@ const TRUST = [
 ];
 
 export default function Home() {
-  const nouveautes = PRODUCTS.filter((p) => p.isNew).concat(
-    PRODUCTS.filter((p) => !p.isNew).slice(0, 5),
-  );
-  const bestSellers = PRODUCTS.filter((p) => p.featured).slice(0, 4);
+  // Les produits photographiés d'abord — pas de mélange photo / placeholder
+  const withPhoto = PRODUCTS.filter((p) => p.photo);
+  const nouveautes = withPhoto
+    .filter((p) => p.isNew)
+    .concat(withPhoto.filter((p) => !p.isNew))
+    .slice(0, 8);
+  const bestSellers = withPhoto
+    .filter((p) => p.featured)
+    .concat(withPhoto.filter((p) => !p.featured))
+    .slice(0, 4);
 
   return (
     <>
       <section className={styles.hero}>
-        <div className="container">
+        <div className={`container ${styles.heroLayout}`}>
           <div className={styles.heroInner}>
             <p className={styles.heroKicker}>Maison française · 0–14 ans</p>
             <h1 className={styles.heroTitle}>
-              L&apos;Élégance à la <em>Française</em>,<br />
-              dès le premier âge
+              Petits moments.<br />
+              <em>Grande allure.</em>
             </h1>
             <p className={styles.heroText}>
-              Des matières nobles, des coupes justes, des couleurs qui
-              traversent les saisons. Chaque pièce est dessinée à Paris,
-              pensée pour être portée, lavée, transmise.
+              Des pièces douces et pleines de caractère,
+              pour les accompagner de leurs premiers pas à leurs grandes aventures.
             </p>
             <div className={styles.heroActions}>
               <Link href="/boutique" className="btn btn--primary btn--lg">
-                Découvrir la Collection
+                Explorer la collection <span aria-hidden="true">↗</span>
               </Link>
               <Link
                 href="/boutique?tri=nouveaute"
@@ -81,8 +87,17 @@ export default function Home() {
               </Link>
             </div>
           </div>
+          <Link href="/produit/doudoune-color-block-ours" className={styles.heroVisual} aria-label="Découvrir la doudoune Color Block Ours">
+            <Image src="/images/products/doudoune-color-block-ours.webp" alt="Doudoune à capuche ours, dans des tons kaki, caramel et écru" fill sizes="(max-width: 640px) 100vw, 45vw" preload className={styles.heroImage} />
+            <span className={styles.heroTag}>Le goût des belles choses</span>
+            <span className={styles.heroCaption}><span>La douceur a du caractère.<small>Découvrir la doudoune Ours</small></span><span aria-hidden="true">↗</span></span>
+          </Link>
         </div>
       </section>
+
+      <div className={styles.quickTrust}>
+        <span>0–14 ans, à leurs côtés</span><span>Retours gratuits · 30 jours</span>
+      </div>
 
       <section className={`container ${styles.section}`}>
         <div className={styles.sectionHead}>
@@ -102,6 +117,7 @@ export default function Home() {
               <p className={styles.catAge}>{c.ageRange}</p>
               <p className={styles.catName}>{c.name}</p>
               <p className={styles.catDesc}>{c.description}</p>
+              <span className={styles.catArrow} aria-hidden="true">↗</span>
             </Link>
           ))}
         </div>

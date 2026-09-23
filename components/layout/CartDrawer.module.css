@@ -22,15 +22,18 @@
   width: min(92vw, 400px);
   background: var(--bg-card);
   box-shadow: var(--shadow-lg);
-  display: flex;
   flex-direction: column;
-  transform: translateX(105%);
-  transition: transform var(--duration-slow) var(--ease);
+  margin: 0 0 0 auto;
+  border: 0;
+  padding: 0;
+  height: 100dvh;
+  max-height: none;
+  max-width: 100%;
+  color: var(--text-primary);
 }
 
-.panelOpen {
-  transform: translateX(0);
-}
+.panel[open] { display: flex; }
+.panel::backdrop { background: rgb(13 19 28 / 50%); backdrop-filter: blur(4px); }
 
 .head {
   display: flex;
@@ -48,8 +51,8 @@
 }
 
 .close {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border: none;
@@ -86,6 +89,8 @@
 
 .items {
   flex: 1;
+  min-height: 0;
+  overscroll-behavior: contain;
   overflow-y: auto;
   padding: var(--space-4) var(--space-6);
   display: flex;
@@ -127,8 +132,8 @@
 }
 
 .qtyBtn {
-  width: 26px;
-  height: 26px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: transparent;
   border-radius: var(--radius-full);
@@ -154,6 +159,7 @@
 }
 
 .remove {
+  min-height: 44px;
   border: none;
   background: none;
   color: var(--text-tertiary);
@@ -175,6 +181,7 @@
 
 .foot {
   padding: var(--space-5) var(--space-6);
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--border-light);
 }
 
@@ -187,4 +194,13 @@
 
 .foot :global(.btn) {
   width: 100%;
+}
+
+@media (max-width: 480px) {
+  .panel { width: 100%; }
+  .item { grid-template-columns: 64px minmax(0, 1fr); align-items: start; padding-block: 12px; border-bottom: 1px solid var(--border-light); }
+  .thumb { width: 64px; height: 80px; object-fit: cover; }
+  .itemRight { grid-column: 2; flex-direction: row; justify-content: space-between; align-items: center; }
+  .head, .items, .foot { padding-inline: 20px; }
+  .foot :global(.btn) { white-space: normal; }
 }

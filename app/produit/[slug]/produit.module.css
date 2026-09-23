@@ -24,18 +24,10 @@
   align-items: start;
 }
 
-.gallery {
-  position: sticky;
-  top: 96px;
-  aspect-ratio: 1;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 1px solid var(--border-light);
-  background: var(--bg-subtle);
-}
-
-.galleryImg {
-  object-fit: cover;
+/* Empêche les colonnes de s'élargir au-delà de l'écran
+   (min-width:auto des grid items + carrousel interne) */
+.layout > * {
+  min-width: 0;
 }
 
 .badges {
@@ -107,7 +99,7 @@
 
 .sizeBtn {
   min-width: 52px;
-  height: 42px;
+  height: 48px;
   padding-inline: var(--space-3);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -223,6 +215,10 @@
 }
 
 .modal {
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  max-height: 85dvh;
+  overflow-y: auto;
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
@@ -230,6 +226,9 @@
   width: 100%;
   padding: var(--space-8);
 }
+
+.modal::backdrop { background: rgb(13 19 28 / 50%); backdrop-filter: blur(4px); }
+.mobilePurchase { display: none; }
 
 .modal h2 {
   margin-top: 0;
@@ -268,14 +267,26 @@
 }
 
 @media (max-width: 900px) {
+  .page { padding-top: 16px; }
+  .breadcrumb { margin-bottom: 16px; line-height: 1.5; }
+  .name { font-size: 2rem; }
+  .sizeGuide { min-height: 44px; font-size: .8rem; }
+  .addRow :global(.btn--outline) { flex: 0 0 52px; padding-inline: 0; }
+  .addRow :global(.btn--primary) { min-width: 0; padding-inline: 12px; }
+  .tabs { overflow-x: auto; }
+  .tab { flex-shrink: 0; white-space: nowrap; }
+  .mobilePurchase { position: fixed; inset: auto 0 0; z-index: 48; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: var(--bg-card); border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgb(13 19 28 / 6%); }
+  .mobilePurchase strong { display: block; font-size: 1.1rem; }
+  .mobilePurchase span { display: block; font-size: .65rem; color: var(--text-secondary); }
+  .mobilePurchase :global(.btn) { padding-inline: 16px; font-size: .66rem; }
+  .mobilePurchase :global(.btn) span { color: inherit; }
+  .modal { width: calc(100% - 32px); padding: 20px; }
+  .sizeTable th, .sizeTable td { padding: 8px 6px; }
   .layout {
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
 
-  .gallery {
-    position: static;
-  }
 
   .relatedGrid {
     grid-template-columns: repeat(2, 1fr);
