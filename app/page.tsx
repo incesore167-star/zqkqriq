@@ -38,9 +38,9 @@ const TRUST = [
     d: 'M4 9l4-4M4 9l4 4M4 9h11a5 5 0 0 1 0 10h-3',
   },
   {
-    title: 'Paiement sécurisé',
-    text: 'CB, Visa, Mastercard, PayPal',
-    d: 'M5 11V8a7 7 0 0 1 14 0v3M6 11h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z',
+    title: 'Service client',
+    text: 'Disponible 24h/24, 7j/7',
+    d: 'M4 13a8 8 0 0 1 16 0M3 15a2 2 0 0 1 2-2h1v5H5a2 2 0 0 1-2-2v-1Zm18 0a2 2 0 0 0-2-2h-1v5h1a2 2 0 0 0 2-2v-1Z',
   },
   {
     title: 'Service client ',
