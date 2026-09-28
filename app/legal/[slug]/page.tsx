@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-/* Templates à faire relire par un juriste avant publication.
-   Les champs [ENTRE CROCHETS] sont à compléter. */
+/* Templates à faire relire par un juriste avant publication. */
 
 interface LegalPage {
   title: string;
@@ -13,14 +12,13 @@ interface LegalPage {
 const PAGES: Record<string, LegalPage> = {
   'mentions-legales': {
     title: 'Mentions légales',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: 'Éditeur du site',
         body: [
-          'Le site lesptitsbens.fr est édité par [RAISON SOCIALE], [FORME JURIDIQUE] au capital de [CAPITAL] €, immatriculée au RCS de [VILLE] sous le numéro [SIREN], dont le siège social est situé [ADRESSE COMPLÈTE].',
-          'N° TVA intracommunautaire : [FR XX XXXXXXXXX]. Directeur de la publication : [NOM DU DIRECTEUR].',
-          'Contact : [EMAIL] · [TÉLÉPHONE].',
+          "Le site lesptitsbens.fr est édité par Nova Seraj LLC, société à responsabilité limitée de droit américain (Limited Liability Company), immatriculée auprès du Secrétaire d'État du Wyoming (États-Unis) le 8 janvier 2026 sous le numéro 2026-001861945, dont le siège social est situé 5830 E 2nd St, Ste 7000 #31994, Casper, WY 82609, États-Unis.",
+          'Contact : contact@novaseraj.shop',
         ],
       },
       {
@@ -32,25 +30,25 @@ const PAGES: Record<string, LegalPage> = {
       {
         heading: 'Propriété intellectuelle',
         body: [
-          "L'ensemble des éléments du site (textes, visuels, logo, charte graphique) est la propriété exclusive de [RAISON SOCIALE] ou fait l'objet d'une autorisation d'utilisation. Toute reproduction sans accord écrit préalable est interdite.",
+          "L'ensemble des éléments du site (textes, visuels, logo, charte graphique) est la propriété exclusive de Nova Seraj LLC ou fait l'objet d'une autorisation d'utilisation. Toute reproduction sans accord écrit préalable est interdite.",
         ],
       },
     ],
   },
   cgv: {
     title: 'Conditions Générales de Vente',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: 'Article 1 — Objet et champ d’application',
         body: [
-          'Les présentes CGV régissent les ventes conclues entre [RAISON SOCIALE] et tout consommateur passant commande sur lesptitsbens.fr. Toute commande implique l’acceptation préalable et sans réserve des présentes CGV, matérialisée par une case à cocher avant paiement.',
+          'Les présentes CGV régissent les ventes conclues entre Nova Seraj LLC (ci-après « Les Ptits Bens »), 5830 E 2nd St, Ste 7000 #31994, Casper, WY 82609, États-Unis, et tout consommateur passant commande sur lesptitsbens.fr. Toute commande implique l’acceptation préalable et sans réserve des présentes CGV, matérialisée par une case à cocher avant paiement.',
         ],
       },
       {
         heading: 'Article 2 — Prix',
         body: [
-          'Les prix sont indiqués en euros, toutes taxes comprises (TVA française de 20 % incluse), hors frais de livraison. Les frais de livraison sont indiqués avant validation de la commande. [RAISON SOCIALE] se réserve le droit de modifier ses prix à tout moment ; les produits sont facturés au tarif en vigueur au moment de la validation de la commande.',
+          'Les prix sont indiqués en euros, toutes taxes comprises (TVA française de 20 % incluse), hors frais de livraison. Les frais de livraison sont indiqués avant validation de la commande. Nova Seraj LLC se réserve le droit de modifier ses prix à tout moment ; les produits sont facturés au tarif en vigueur au moment de la validation de la commande.',
         ],
       },
       {
@@ -63,7 +61,7 @@ const PAGES: Record<string, LegalPage> = {
       {
         heading: 'Article 4 — Livraison',
         body: [
-          'Livraison en France métropolitaine sous [X] jours ouvrés. Livraison offerte dès 60 € d’achat, sinon [4,90] €. En cas de retard de plus de 7 jours, le client peut annuler sa commande et être remboursé.',
+          'Livraison en France métropolitaine sous 2 à 4 jours ouvrés après expédition. Livraison offerte dès 60 € d’achat, sinon 4,90 €. En cas de retard de plus de 7 jours, le client peut annuler sa commande et être remboursé.',
         ],
       },
       {
@@ -75,19 +73,19 @@ const PAGES: Record<string, LegalPage> = {
       {
         heading: 'Article 6 — Médiation et litiges',
         body: [
-          'Conformément aux articles L611-1 s. du Code de la consommation, le client peut recourir gratuitement au médiateur [NOM DU MÉDIATEUR RÉFÉRENCÉ] : [COORDONNÉES]. À défaut de résolution amiable, les tribunaux français sont compétents.',
+          'Conformément aux articles L611-1 s. du Code de la consommation, le client peut recourir gratuitement à un médiateur de la consommation, dans les conditions présentées sur la page Médiation consommateur. À défaut de résolution amiable, les tribunaux français sont compétents.',
         ],
       },
     ],
   },
   confidentialite: {
     title: 'Politique de confidentialité',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: 'Responsable de traitement',
         body: [
-          '[RAISON SOCIALE], [ADRESSE], est responsable du traitement des données collectées sur ce site. Contact : [EMAIL DPO OU CONTACT RGPD].',
+          'Nova Seraj LLC, 5830 E 2nd St, Ste 7000 #31994, Casper, WY 82609, États-Unis, est responsable du traitement des données collectées sur ce site. Contact : contact@novaseraj.shop.',
         ],
       },
       {
@@ -101,20 +99,20 @@ const PAGES: Record<string, LegalPage> = {
       {
         heading: 'Destinataires et sous-traitants',
         body: [
-          'Les données sont transmises uniquement aux prestataires nécessaires : Shopify (gestion boutique et paiement), Vercel (hébergement), [PRESTATAIRE EMAIL] (envoi d’e-mails), transporteurs (livraison). Aucun transfert n’est réalisé à des fins commerciales tierces.',
+          'Les données sont transmises uniquement aux prestataires nécessaires : Shopify (gestion boutique et paiement), Vercel (hébergement), un prestataire d’envoi d’e-mails, transporteurs (livraison). Aucun transfert n’est réalisé à des fins commerciales tierces.',
         ],
       },
       {
         heading: 'Vos droits',
         body: [
-          'Vous disposez des droits d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité (art. 15 à 22 RGPD). Exercez-les à [EMAIL]. Vous pouvez introduire une réclamation auprès de la CNIL (cnil.fr).',
+          'Vous disposez des droits d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité (art. 15 à 22 RGPD). Exercez-les à contact@novaseraj.shop. Vous pouvez introduire une réclamation auprès de la CNIL (cnil.fr).',
         ],
       },
     ],
   },
   cookies: {
     title: 'Politique de cookies',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: 'Qu’est-ce qu’un cookie ?',
@@ -126,8 +124,8 @@ const PAGES: Record<string, LegalPage> = {
         heading: 'Cookies utilisés',
         body: [
           'Fonctionnels (exemptés de consentement) : panier, favoris, préférence de thème. Durée : 6 mois maximum.',
-          'Mesure d’audience : [OUTIL ANALYTICS] — déposés uniquement après consentement.',
-          'Marketing : [OUTILS] — déposés uniquement après consentement.',
+          'Mesure d’audience : outils de statistiques de fréquentation — déposés uniquement après consentement.',
+          'Marketing : cookies publicitaires et de réseaux sociaux — déposés uniquement après consentement.',
         ],
       },
       {
@@ -140,19 +138,12 @@ const PAGES: Record<string, LegalPage> = {
   },
   retractation: {
     title: 'Droit de rétractation',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: 'Délai de 14 jours',
         body: [
-          'Conformément au Code de la consommation (tel que modifié par l’Ordonnance n° 2026-2 et le Décret n° 2026-3), vous disposez de 14 jours francs à compter de la réception de votre commande pour exercer votre droit de rétractation, sans motif ni pénalité.',
-        ],
-      },
-      {
-        heading: 'Comment l’exercer',
-        body: [
-          'Notifiez-nous votre décision par e-mail à [EMAIL] ou via le formulaire type de rétractation téléchargeable ci-dessous, puis retournez les articles dans leur état d’origine sous 14 jours.',
-          '[LIEN FORMULAIRE TYPE DE RÉTRACTATION — PDF]',
+          'Conformément aux articles L221-18 et suivants du Code de la consommation, vous disposez de 14 jours francs à compter de la réception de votre commande pour exercer votre droit de rétractation, sans motif ni pénalité.',
         ],
       },
       {
@@ -171,18 +162,18 @@ const PAGES: Record<string, LegalPage> = {
   },
   livraison: {
     title: 'Politique de livraison',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: 'Zones et délais',
         body: [
-          'France métropolitaine : livraison en [2–4] jours ouvrés après expédition (expédition sous 48 h ouvrées). Union européenne : [5–8] jours ouvrés.',
+          'France métropolitaine : livraison en 2 à 4 jours ouvrés après expédition (expédition sous 48 h ouvrées). Union européenne : 5 à 8 jours ouvrés.',
         ],
       },
       {
         heading: 'Frais',
         body: [
-          'France métropolitaine : 4,90 € — offerte dès 60 € d’achat. Point relais : [3,50] €. UE : [8,90] €.',
+          'France métropolitaine : 4,90 € — offerte dès 60 € d’achat. Point relais : 3,50 €. UE : 8,90 €.',
         ],
       },
       {
@@ -195,7 +186,7 @@ const PAGES: Record<string, LegalPage> = {
   },
   retours: {
     title: 'Retours & échanges',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: '30 jours pour changer d’avis',
@@ -206,7 +197,7 @@ const PAGES: Record<string, LegalPage> = {
       {
         heading: 'Procédure',
         body: [
-          'Demandez votre étiquette de retour prépayée à [EMAIL] en indiquant votre numéro de commande. Le retour est gratuit en France métropolitaine.',
+          'Demandez votre étiquette de retour prépayée à contact@novaseraj.shop en indiquant votre numéro de commande. Le retour est gratuit en France métropolitaine.',
           'Remboursement ou échange sous 14 jours après réception de votre colis dans nos ateliers.',
         ],
       },
@@ -214,14 +205,12 @@ const PAGES: Record<string, LegalPage> = {
   },
   mediation: {
     title: 'Médiation consommateur',
-    updated: '2026-09-20',
+    updated: '2026-09-28',
     sections: [
       {
         heading: 'Recours gratuit à un médiateur',
         body: [
           'Conformément aux articles L611-1 et suivants du Code de la consommation, tout consommateur a le droit de recourir gratuitement à un médiateur de la consommation en cas de litige non résolu par notre service client.',
-          'Médiateur référencé : [NOM DU MÉDIATEUR] — [ADRESSE POSTALE] — [SITE WEB DU MÉDIATEUR].',
-          'Avant de saisir le médiateur, vous devez avoir tenté de résoudre le litige directement auprès de notre service client : [EMAIL].',
         ],
       },
     ],
@@ -276,19 +265,6 @@ export default async function LegalPageRoute({ params }: Props) {
           ))}
         </section>
       ))}
-      <p
-        style={{
-          marginTop: 'var(--space-10)',
-          padding: 'var(--space-4)',
-          background: 'var(--gold-soft)',
-          borderRadius: 'var(--radius-md)',
-          fontSize: 'var(--text-xs)',
-          color: 'var(--text-secondary)',
-        }}
-      >
-        ⚠️ Document de travail : les champs entre crochets sont à compléter et
-        l&apos;ensemble doit être relu par un juriste avant le lancement.
-      </p>
     </div>
   );
 }
